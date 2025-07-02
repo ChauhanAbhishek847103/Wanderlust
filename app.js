@@ -29,7 +29,7 @@ const userRouter=require("./routes/user.js");
 
 
 
-//const MONGO_URL="mongodb://127.0.0.1:27017/wanderlust";
+
 const dbUrl=process.env.ATLASDB_URL;
 
 main().then( () =>{
@@ -42,6 +42,14 @@ async function main() {
     await mongoose.connect(dbUrl);
 }
 
+
+app.get("/", (req, res) => {
+    res.send("Welcome to Wanderlust!");
+});
+
+
+
+
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended:true}));
@@ -53,7 +61,7 @@ const store=MongoStore.create({
     
     mongoUrl:dbUrl,
     crypto:{
-        secret:"mysupersecret"
+        secret:process.env.SECRET,
     },
     touchAfter:24*3600,
   });
@@ -66,7 +74,7 @@ const store=MongoStore.create({
 
 const sessionOptions={
     store,
-    secret:"mysupersecret",
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     cookie:{
