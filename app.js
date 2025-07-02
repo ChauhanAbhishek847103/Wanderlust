@@ -43,9 +43,7 @@ async function main() {
 }
 
 
-app.get("/", (req, res) => {
-    res.render("Welcome to Wanderlust!");
-});
+
 
 
 
@@ -107,6 +105,10 @@ app.use((req, res, next) => {
     res.locals.currUser = req.user; // Make current user available in templates
     
     next();
+});
+
+app.get("/", (req, res) => {
+    res.render("home");
 });
 
 app.get("/demouser",async(req,res) => {
