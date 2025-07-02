@@ -44,7 +44,7 @@ async function main() {
 
 
 app.get("/", (req, res) => {
-    res.send("Welcome to Wanderlust!");
+    res.render("Welcome to Wanderlust!");
 });
 
 
